@@ -3,7 +3,7 @@ import { FilterUsersDTO, UserDTO, UserIdDTO, UserPrimaryInfoDTO, UserResponseDTO
 
 @Injectable()
 export class UsersService {
-    private users: any[] = [];
+    private users: UserDTO[] = [];
 
     async getUsers(usersFilters: FilterUsersDTO): Promise<UserResponseDTO[] | UserPrimaryInfoDTO[]> {
         let filteredUsers = this.users;
@@ -20,9 +20,6 @@ export class UsersService {
             id: user.id,
             name: user.nombre,
             last_name: user.apellido,
-            email: user.correo,
-            role_id: user.rol_id,
-            role_name: user.rol_id === 1 ? 'Teacher' : 'Student',
         }));
     }
 

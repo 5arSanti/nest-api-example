@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController, UsersModule]
+  imports: [UsersModule],
+  controllers: [AppController]
 })
 export class AppModule {}

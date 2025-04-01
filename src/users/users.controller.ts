@@ -1,8 +1,6 @@
 import { Body, Controller, Delete, Get, HttpException, InternalServerErrorException, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserResponseDTO, UsersResponseDTO } from './dto/users.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
-import { TeacherRoleGuard } from 'src/auth/guards/teacher-role.guard';
 
 @Controller('users')
 export class UsersController {
@@ -11,7 +9,6 @@ export class UsersController {
     private usersService: UsersService
   ) { }
 
-  @UseGuards(JwtAuthGuard, TeacherRoleGuard)
   @Get()
   async getUsers(@Query() usersFilters: FilterUsersDTO): Promise<UsersResponseDTO> {
     try {
@@ -41,7 +38,6 @@ export class UsersController {
     }
   }
 
-  @UseGuards(JwtAuthGuard, TeacherRoleGuard)
   @Delete()
   async deleteUser(@Query() user: UserIdDTO) {
     try {

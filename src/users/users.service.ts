@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserPrimaryInfoDTO, UserResponseDTO } from './dto/users.dto';
+import { FilterUsersDTO, UserDTO, UserIdDTO, UserPrimaryInfoDTO, UserResponseDTO } from './dto/users.dto';
 
 @Injectable()
 export class UsersService {
@@ -7,14 +7,6 @@ export class UsersService {
 
     async getUsers(usersFilters: FilterUsersDTO): Promise<UserResponseDTO[] | UserPrimaryInfoDTO[]> {
         let filteredUsers = this.users;
-
-        if (usersFilters.students) {
-            filteredUsers = filteredUsers.filter(user => user.rol_id === 2);
-        }
-
-        if (usersFilters.teachers) {
-            filteredUsers = filteredUsers.filter(user => user.rol_id === 1);
-        }
 
         if (usersFilters.no_details) {
             return filteredUsers.map(user => ({
@@ -34,14 +26,10 @@ export class UsersService {
         }));
     }
 
-    async registrarUsuario(userInfo: RegisterUserDTO) {
-        const { id, nombre, apellido, correo, contrasena, rol_id, confirmar_contraseña } = userInfo;
+    async registrarUsuario(userInfo: UserDTO) {
+        const { id, nombre, apellido } = userInfo;
 
-        if (contrasena !== confirmar_contraseña) {
-            throw new BadRequestException('Las contraseñas no coinciden');
-        }
-
-        const usuarioExistente = this.users.find(user => user.correo === correo || user.id === id);
+        const usuarioExistente = this.users.find(user => user.id === id);
 
         if (usuarioExistente) {
             throw new BadRequestException('Este usuario ya se encuentra registrado');
@@ -53,8 +41,6 @@ export class UsersService {
             id,
             nombre,
             apellido,
-            correo,
-            rol_id: rol_id || 2,
         });
     }
 

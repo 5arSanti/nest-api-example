@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, HttpException, InternalServerErrorException, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, InternalServerErrorException, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { FilterUsersDTO, RegisterUserDTO, UserIdDTO, UserResponseDTO, UsersResponseDTO } from './dto/users.dto';
+import { FilterUsersDTO, UserDTO, UserIdDTO, UsersResponseDTO } from './dto/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -25,7 +25,7 @@ export class UsersController {
 
 
   @Post()
-  async registerUser(@Body() userInfo: RegisterUserDTO) {
+  async registerUser(@Body() userInfo: UserDTO) {
     try {
       await this.usersService.registrarUsuario(userInfo);
 

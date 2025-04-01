@@ -33,57 +33,9 @@ export class UserDTO extends UserIdDTO {
     @IsNotEmpty()
     @IsString()
     apellido: string;
-
-    @IsNotEmpty()
-    @IsString()
-    @IsEmail()
-    correo: string;
-
-    @IsOptional()
-    @IsNumber()
-    @IsPositive()
-    rol_id?: number;
-}
-
-
-export class RegisterUserDTO extends UserDTO {
-    @IsNotEmpty()
-    @IsStrongPassword()
-    contrasena: string;
-
-    @IsNotEmpty()
-    @IsStrongPassword()
-    confirmar_contraseña: string;
 }
 
 export class FilterUsersDTO {
-    @IsOptional()
-    @Transform(({ value }) => {
-        if (value === 'true' || value === true) return true;
-        if (value === 'false' || value === false) return false;
-        return false;
-    })
-    @IsBoolean()
-    all_users?: boolean;
-
-    @IsOptional()
-    @Transform(({ value }) => {
-        if (value === 'true' || value === true) return true;
-        if (value === 'false' || value === false) return false;
-        return false;
-    })
-    @IsBoolean()
-    students?: boolean;
-
-    @IsOptional()
-    @Transform(({ value }) => {
-        if (value === 'true' || value === true) return true;
-        if (value === 'false' || value === false) return false;
-        return false;
-    })
-    @IsBoolean()
-    teachers?: boolean;
-
     @IsOptional()
     @Transform(({ value }) => {
         if (value === 'true' || value === true) return true;
